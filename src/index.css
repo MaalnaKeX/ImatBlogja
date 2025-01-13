@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply text-white
+  } 
+}
+.rsw-toolbar, .rsw-btn, .rsw-dd {
+  background-color: #2a2a30 !important;
+  color: white !important;
+}
+.rsw-editor, .rsw-toolbar {
+  border-color: #2a2a30 !important;
+  border-width: 0.15rem !important;
+}
+.rsw-separator {
+  border-color: #1b1b1f !important;
+  border-width: 0.1rem !important;
+}
