@@ -7,6 +7,7 @@ import { UserContext } from '../context/UserContext'
 import { DropDown } from '../components/DropDown'
 import { clearHTML } from '../utility/utils'
 import parse from 'html-react-parser';
+import { delPhoto } from '../utility/uploadFile'
 
 export const Post = () => {
   const { user } = useContext(UserContext)
@@ -64,7 +65,7 @@ export const Post = () => {
             <div className='flex gap-2'>
               <DropDown title={"..."} color='bg-[#1b1b1f]'>
                 <button className='border w-full border-blue-500 rounded-md p-1 mt-4 hover:bg-blue-500 active:bg-blue-500 transition-all' onClick={() => navigate("/update/"+post.id)}>Edit</button>
-                <button className='border w-full border-red-500 rounded-md p-1 mt-4 hover:bg-red-500 active:bg-red-500 transition-all' onClick={() => {deletePost(params.id); navigate("/posts")}}>Delete</button>
+                <button className='border w-full border-red-500 rounded-md p-1 mt-4 hover:bg-red-500 active:bg-red-500 transition-all' onClick={() => {deletePost(params.id); delPhoto(post.photo.id); navigate("/posts")}}>Delete</button>
               </DropDown>
             </div>
           </>

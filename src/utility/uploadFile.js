@@ -13,6 +13,15 @@ export const uploadFile = async (file) => {
   }
 }
 
+const url = "https://imatblogjabackend.onrender.com/post/"
+
+export const delPhoto = async (id) => {
+	try {
+		await axios.delete(url + id)
+	} catch (error) {
+		console.log(error);
+	}
+} 
 
 
 
