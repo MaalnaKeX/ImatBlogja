@@ -26,7 +26,7 @@ export const Home = () => {
         
                 bg-cover
                 bg-no-repeat
-                bg-center
+                bg-[center_25%]
                 before:content-['']
                 before:absolute
                 before:inset-0
@@ -43,7 +43,7 @@ export const Home = () => {
           <>
             <p className='text-2xl font-bold'>Kategóriák</p>
             <div className='flex gap-4'>
-              { categories.map(e =><NavLink to={'/posts?ctg=' + e.name} className={"border-b-0 hover:border-b-2 transition-all duration-75"}>{e.name}</NavLink>) }
+              { categories.map(e =><NavLink to={'/posts?ctg=' + e.name} className={"underline decoration-2 underline-offset-4 decoration-transparent hover:decoration-white/75 transition-all"}>{e.name}</NavLink>) }
             </div>
           </>
           }
