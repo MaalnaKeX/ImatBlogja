@@ -34,7 +34,7 @@ export const SearcBox = ({items}) => {
   }
 
   return (
-    <div>
+    <div className='my-4'>
       <ReactSearchAutocomplete
         items={items}
         onSearch={handleOnSearch}
