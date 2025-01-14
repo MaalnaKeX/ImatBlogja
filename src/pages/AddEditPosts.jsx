@@ -37,7 +37,7 @@ export const AddEditPosts = () => {
   useEffect(() => {
     if (post) {
       setValue("title", post.title)
-      setSelCateg(post.category)
+      setSelCateg(s.current.value)
       setStory(post.story)
       s.current.value = post.category
     }

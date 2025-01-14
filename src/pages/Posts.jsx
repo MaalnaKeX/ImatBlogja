@@ -43,16 +43,10 @@ export const Posts = () => {
     <div>
       <div className='relative mb-4 pb-8'>
         <SearcBox items={posts.map(e => ({id:e.id, name:e.title}))} />
-        <div className='gap-2 justify-center flex-wrap absolute bottom-0 hidden sm:flex'>
+        <div className='flex gap-2 justify-center flex-wrap absolute bottom-0'>
           {
             categories.map(a => <label key={a.id} className={`select-none h-full pr-3 py-1 rounded-full ${selectedCategs.includes(a.name) && "bg-[#2a2a30]"}`}><input type="checkbox" value={a.name} className='bg-[#2a2a30] p-2 rounded-full opacity-0' onChange={handleChange} checked={selectedCategs.includes(a.name)} />{a.name}</label>)
             // categories.map(e => <p className='bg-[#2a2a30] p-2 rounded-full' onClick={() => setSelectedCategs(p => {})}>{e.name}</p>)
-          }
-        </div>
-        <div className='gap-2 justify-center flex-wrap absolute bottom-0 flex sm:hidden'>
-          {
-            // categories.map(a => <label key={a.id} className={`select-none h-full pr-3 py-1 rounded-full ${selectedCategs.includes(a.name) && "bg-[#2a2a30]"}`}><input type="checkbox" value={a.name} className='bg-[#2a2a30] p-2 rounded-full opacity-0' onChange={handleChange} checked={selectedCategs.includes(a.name)} />{a.name}</label>)
-            <Filter />
           }
         </div>
         <div className='flex justify-center gap-4 mt-2'>
