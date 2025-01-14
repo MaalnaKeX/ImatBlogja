@@ -5,6 +5,7 @@ import { Link, Outlet } from 'react-router-dom'
 import { UserContext } from '../context/UserContext'
 import { extractUrlAndId } from '../utility/utils'
 import { useEffect } from 'react'
+import { DropDown } from './DropDown'
 
 export const Header = () => {
 
@@ -30,33 +31,30 @@ export const Header = () => {
                 <Link to={'/create'}>Új Poszt</Link>
               }
             </div>
-            <div>
-              <input type="button" value="|||" className={`${!open && "rotate-90" } transition-all cursor-pointer`} onClick={() => setOpen(!open)} />
-              <div className={`absolute right-2 top-16 bg-[#2a2a30] p-4 rounded-lg flex select-none ${open ? "opacity-100 z-50 translate-y-0" : "opacity-0 -z-50 -translate-y-10"} transition-all flex-col`}>
-                { !user ?
-                  <>
-                    <Link to={'/auth/in'}>Bejelentkezés</Link>
-                    <Link to={'/auth/up'}>Regisztráció</Link>
-                  </> 
-                  :
-                  <>
-                    <Link to={'/profile'} className='flex gap-2 items-center justify-between mb-2'>
-                      <p>Profil</p>
-                      {/* <img src={user.photoURL} /> */}
-                      { avatar ?
-                        <img src={avatar} className='size-8 object-cover object-center rounded-full' />
-                        :
-                        <p>P</p>
-                      }
+            <DropDown title={"|||"} canRotate>
+              { !user ?
+                <>
+                  <Link to={'/auth/in'}>Bejelentkezés</Link>
+                  <Link to={'/auth/up'}>Regisztráció</Link>
+                </> 
+                :
+                <>
+                  <Link to={'/profile'} className='flex gap-2 items-center justify-between mb-2'>
+                    <p>Profil</p>
+                    {/* <img src={user.photoURL} /> */}
+                    { avatar ?
+                      <img src={avatar} className='size-8 object-cover object-center rounded-full' />
+                      :
+                      <p>P</p>
+                    }
 
-                    </Link>
-                    <hr />
-                    <Link to={'/'} onClick={logoutUser}>Kijelentkezés</Link>
-                    <Link to={'/deleteUser'} >Fiók Törlése</Link>
-                  </>
-                }
-              </div>
-            </div>
+                  </Link>
+                  <hr />
+                  <Link to={'/'} onClick={logoutUser}>Kijelentkezés</Link>
+                  <Link to={'/deleteUser'} >Fiók Törlése</Link>
+                </>
+              }
+            </DropDown>
           </div>
           {/* <div class="w-full
             h-screen

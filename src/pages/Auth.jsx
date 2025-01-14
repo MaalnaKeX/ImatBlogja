@@ -5,17 +5,23 @@ import { UserContext } from '../context/UserContext'
 import { useState } from 'react'
 import { Toast } from '../components/Toast'
 import { useRef } from 'react'
+import { useEffect } from 'react'
 
 export const Auth = () => {
 
-  const {user, signInUser, message, signUpUser} = useContext(UserContext)
+  const {user, signInUser, message, setMessage, signUpUser} = useContext(UserContext)
   const errMessage = useRef()
   const [passwordVisible, setPasswordVisible] = useState(false);
   const navigate = useNavigate()
   const location = useLocation()
   const IsSignIn = location.pathname == "/auth/in"
 
-  console.log(location.pathname);
+  console.log(location.pathname)
+  console.log(message)
+
+  useEffect(() => {
+    if (user) navigate("/")
+  }, [user])
   
 
   const handleSubmit = (event) => {
@@ -23,8 +29,9 @@ export const Auth = () => {
     const data = new FormData(event.currentTarget)
     if (IsSignIn) signInUser(data.get('email'), data.get('password'))
     else signUpUser(data.get('email'), data.get('password'), data.get("displayName"))
-    errMessage.current.innerText = message.signIn
-    if (message.uid) navigate("/")
+    setTimeout(() => {
+      errMessage.current.innerText = message.signIn || "Próbáld újra"
+    }, 100)
   }
   
   return (
@@ -46,7 +53,7 @@ export const Auth = () => {
         { IsSignIn &&
           <a href="#" onClick={() => navigate("/pwreset")}>Forgor password 💀</a>
         }
-        <p ref={errMessage}>Error</p>
+        <p ref={errMessage}>&#8203;</p>
       </form>
     </div>
   )

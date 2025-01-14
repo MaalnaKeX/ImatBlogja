@@ -10,12 +10,12 @@ export const readCategories = (setCategories) => {
   return unsubscribe
 }
 
-export const readPosts = (setPosts, selCateg) => {
+export const readPosts = (setPosts, selCateg, filters) => {
   const collectionRef = collection(db, "posts")
   const q = selCateg.length == 0 ? 
-    query(collectionRef, orderBy("timestamp", "asc")) 
+    query(collectionRef, orderBy(filters.by, filters.order)) 
     : 
-    query(collectionRef, orderBy("timestamp", "asc"), where("category", "in", selCateg))
+    query(collectionRef, orderBy(filters.by, filters.order), where("category", "in", selCateg))
   const unsubscribe = onSnapshot(q, (snapshot) => {
     setPosts(snapshot.docs.map(doc => ({...doc.data(), id:doc.id})))
     snapshot.docs.map(doc => console.log({...doc.data(), id:doc.id}))

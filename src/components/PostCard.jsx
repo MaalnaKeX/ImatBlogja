@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import { clearHTML } from '../utility/utils'
 
 export const PostCard = ({postId, title, auth, timestamp, desc, image, categ}) => {
+  // const date = new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000)
+
   return (
     <NavLink to={"/post/"+postId} className='flex flex-col gap-3 bg-[#101010] shadow-2xl shadow-black w-96 p-4 rounded-lg cursor-pointer hover:scale-[1.025] transition-all'>
       <h2 className='text-2xl font-bold'>{title}</h2>
@@ -34,11 +37,11 @@ export const PostCard = ({postId, title, auth, timestamp, desc, image, categ}) =
               to-10%
               before:z-[-5]`}>
           <div className='flex flex-col gap-2 w-full'>
-            <p className='h-12 overflow-y-clip text-ellipsis'>{desc}</p>
-            <div className='flex justify-between items-center'>
-              <p className='opacity-50'>{auth}</p>
-              <p className='opacity-50 bg-[#2a2a30] p-2 rounded-lg'>{categ}</p>
-              <p className='opacity-50'>{new Date(timestamp).getFullYear()}</p>
+            <p className='h-12 overflow-y-clip text-ellipsis'>{clearHTML(desc)}</p>
+            <div className='relative'>
+              <p className='opacity-50 absolute left-0 bottom-0'>{auth}</p>
+              <p className='opacity-50 bg-[#2a2a30] p-2 rounded-lg w-max mx-auto'>{categ}</p>
+              <p className='opacity-50 absolute right-0 bottom-0'>{new Date(timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000).toISOString().split("T")[0].replaceAll("-", ".")}</p>
             </div>
           </div>
         </div>

@@ -34,7 +34,7 @@ export const SearcBox = ({items}) => {
   }
 
   return (
-    <div className='my-4'>
+    <div className='my-2'>
       <ReactSearchAutocomplete
         items={items}
         onSearch={handleOnSearch}
@@ -44,6 +44,7 @@ export const SearcBox = ({items}) => {
         autoFocus
         formatResult={formatResult}
         styling={{backgroundColor: '#1b1b1f', color: 'white', border:'#1b1b1f', borderRadius: "24px", hoverBackgroundColor: "#101010", lineColor: "#101010", zIndex: 20}}
+        className='max-w-96 mx-auto'
       />
     </div>
   )
