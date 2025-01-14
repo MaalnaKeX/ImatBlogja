@@ -9,6 +9,7 @@ import { uploadFile } from '../utility/uploadFile'
 import { addPost, readPost, updatepost } from '../utility/crudUtility'
 import { CategContext } from '../context/CategContext'
 import { useParams } from 'react-router-dom'
+import { useRef } from 'react'
 
 export const AddEditPosts = () => {
 
@@ -21,6 +22,7 @@ export const AddEditPosts = () => {
   const [selCateg, setSelCateg] = useState(null)
   const [post, setPost] = useState(null)
   const params = useParams()
+  const s = useRef()
 
   const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm({
     // defaultValues: {
@@ -37,6 +39,7 @@ export const AddEditPosts = () => {
       setValue("title", post.title)
       setSelCateg(post.category)
       setStory(post.story)
+      s.current.value = post.category
     }
   }, [post])
 
@@ -93,7 +96,7 @@ export const AddEditPosts = () => {
           {/* <DropDown title={"Kategória"} selected={selCateg}>
             {categories && categories.map(e => <input value={e.name} type='button' key={e.id} onClick={(e) => setSelCateg(e.target.value)} /> )}
             </DropDown> */}
-          <select className='bg-[#2a2a30] p-2 rounded-md'>
+          <select className='bg-[#2a2a30] p-2 rounded-md' ref={s}>
             {categories && categories.map(e => <option key={e.id} onClick={(e) => setSelCateg(e.target.value)} className='bg-[#1b1b1f]'>{e.name}</option>)}
           </select>
         </div>

@@ -9,6 +9,7 @@ import { useSearchParams } from 'react-router-dom'
 import { SearcBox } from '../components/SearcBox'
 import { UserContext } from '../context/UserContext'
 import { ArrowUpDown } from 'lucide-react'
+import { Filter } from 'lucide-react'
 
 export const Posts = () => {
   const { user } = useContext(UserContext)
@@ -40,15 +41,21 @@ export const Posts = () => {
 
   return (
     <div>
-      <div className='relative mb-4'>
+      <div className='relative mb-4 pb-8'>
         <SearcBox items={posts.map(e => ({id:e.id, name:e.title}))} />
-        <div className='flex gap-2 justify-center flex-wrap absolute top-1/2'>
+        <div className='gap-2 justify-center flex-wrap absolute bottom-0 hidden sm:flex'>
           {
             categories.map(a => <label key={a.id} className={`select-none h-full pr-3 py-1 rounded-full ${selectedCategs.includes(a.name) && "bg-[#2a2a30]"}`}><input type="checkbox" value={a.name} className='bg-[#2a2a30] p-2 rounded-full opacity-0' onChange={handleChange} checked={selectedCategs.includes(a.name)} />{a.name}</label>)
             // categories.map(e => <p className='bg-[#2a2a30] p-2 rounded-full' onClick={() => setSelectedCategs(p => {})}>{e.name}</p>)
           }
         </div>
-        <div className='flex justify-center gap-4'>
+        <div className='gap-2 justify-center flex-wrap absolute bottom-0 flex sm:hidden'>
+          {
+            // categories.map(a => <label key={a.id} className={`select-none h-full pr-3 py-1 rounded-full ${selectedCategs.includes(a.name) && "bg-[#2a2a30]"}`}><input type="checkbox" value={a.name} className='bg-[#2a2a30] p-2 rounded-full opacity-0' onChange={handleChange} checked={selectedCategs.includes(a.name)} />{a.name}</label>)
+            <Filter />
+          }
+        </div>
+        <div className='flex justify-center gap-4 mt-2'>
           { user &&
           <>
             <button className={`underline underline-offset-4 decoration-2 ${filteredPosts == posts ? "decoration-blue-500" : "decoration-transparent"}`} onClick={() => setFilteredPosts(posts)}>Minden</button>
@@ -56,7 +63,7 @@ export const Posts = () => {
           </>
           }
         </div>
-        <div className='flex gap-2 justify-center flex-wrap absolute top-1/2 right-0'>
+        <div className='flex gap-2 justify-center flex-wrap absolute bottom-0 right-0'>
           <button className={`${filters.order == "asc" && "scale-y-[-1]"} transition-all`} onClick={() => setFilters(p => ({...p, order:p.order === "asc" ? "desc" : "asc"}))}><ArrowUpDown /></button>
           <select className='bg-[#2a2a30] p-1' onChange={(e) => setFilters(p => ({...p, by:e.target.value}))}>
             <option value="timestamp">Idő</option>
@@ -75,7 +82,7 @@ export const Posts = () => {
         { posts &&
           <SearcBox items={posts.map(e => ({id:e.id, name:e.title}))} />
         }
-        <div className='flex gap-4 justify-center flex-wrap absolute top-1/2'>
+        <div className='flex gap-4 justify-center flex-wrap absolute bottom-0'>
           {
             categories.map(a => <label key={a.id} className={`select-none h-full pr-3 py-1 rounded-full ${selectedCategs.includes(a.name) && "bg-[#2a2a30]"}`}><input type="checkbox" value={a.name} className='bg-[#2a2a30] p-2 rounded-full opacity-0' onChange={handleChange} checked={selectedCategs.includes(a.name)} />{a.name}</label>)
             // categories.map(e => <p className='bg-[#2a2a30] p-2 rounded-full' onClick={() => setSelectedCategs(p => {})}>{e.name}</p>)
