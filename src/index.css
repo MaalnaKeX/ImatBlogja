@@ -25,3 +25,7 @@
   border-color: #1b1b1f !important;
   border-width: 0.1rem !important;
 }
+.rsw-ce {
+  overflow: hidden;
+  max-width: 40rem;
+}
