@@ -7,20 +7,19 @@ import { useState } from 'react'
 import { uploadFile } from '../utility/uploadFile'
 import { useEffect } from 'react'
 import { extractUrlAndId } from '../utility/utils'
+import { useRef } from 'react'
 
 export const Profile = () => {
 
   const {user, updateUser, message, deleteAccount} = useContext(UserContext)
   const [loading, setLoading] = useState(false)
   const [avatar, setAvatar] = useState(null)
+  const [name, setname] = useState("")
 
   useEffect(() => {
     user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url)
+    user?.displayName && setname(user.displayName)
   }, [user])
-
-  // useEffect(() => {
-  //   if (!user) return <NotFound />
-  // }, [])
 
   const {register, handleSubmit, formState: {errors}} = useForm({
     defaultValues: {
@@ -42,13 +41,15 @@ export const Profile = () => {
     setLoading(false)
   }
 
+  if (!user) return <NotFound />
+
   return (
     <div className="flex flex-1 flex-col justify-center items-center">
       <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col items-center gap-4 w-96 bg-zinc-900 p-6 rounded-lg'>
         <h1 className="text-3xl">User Profile</h1>
         <div className='w-full'>
           <label className='float-left w-full opacity-70'>Display Name</label>
-          <input type="text" {...register("displayName")} placeholder='Display Name' name='displayName' className='bg-[#2a2a30] rounded-lg outline-none px-3 p-2 w-full' />
+          <input type="text" {...register("displayName")} placeholder='Display Name' name='displayName' defaultValue={name} className='bg-[#2a2a30] rounded-lg outline-none px-3 p-2 w-full' />
         </div>
         <div className='w-full'>
           <label className='float-left w-full opacity-70'>Avatar</label>
@@ -66,7 +67,7 @@ export const Profile = () => {
         </div>
         <input className='bg-blue-600 rounded-lg px-5 p-2 w-full' type='submit' />
         { message && 
-          <p>{message}</p>
+          <p>{message.signIn}</p>
         }
       </form>
       { loading &&
